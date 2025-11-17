@@ -5,6 +5,22 @@ import sys
 from datetime import datetime, timezone, timedelta
 import os
 from dotenv import load_dotenv
+import threading
+from flask import Flask
+
+# --- Start a tiny Flask web server for Render ---
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "✅ Tazkarti Alert Bot is running on Render."
+
+def run_flask():
+    app.run(host='0.0.0.0', port=10000)
+
+# Run Flask in a background thread
+threading.Thread(target=run_flask).start()
+# --- End Flask section ---
 
 
 load_dotenv()
